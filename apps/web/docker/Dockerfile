@@ -43,8 +43,8 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 RUN ls
-RUN ls ..
-RUN ls /app
+RUN ls /
+RUN ls /mnt
 
 # Install turbo with npm instead of pnpm to avoid key verification issues
 RUN pnpm install -g turbo
