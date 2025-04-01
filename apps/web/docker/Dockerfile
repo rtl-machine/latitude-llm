@@ -73,7 +73,7 @@ RUN git checkout $RAILWAY_GIT_COMMIT_SHA
 
 # Create the destination directory and copy the repo content
 RUN mkdir -p /app
-COPY --from=0 /tmp/repo/ /app/
+COPY . /app/
 
 RUN ls
 RUN ls /tmp/repo
