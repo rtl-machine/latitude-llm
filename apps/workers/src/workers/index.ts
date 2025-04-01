@@ -19,6 +19,7 @@ export default async function startWorkers() {
   await setupSchedules()
 
   const connection = await buildRedisConnection({
+    family: 0,
     host: env.QUEUE_HOST,
     port: env.QUEUE_PORT,
     password: env.QUEUE_PASSWORD,

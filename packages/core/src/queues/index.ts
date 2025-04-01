@@ -9,6 +9,7 @@ export const queuesConnection = async () => {
   if (connection) return connection
 
   connection = await buildRedisConnection({
+    family: 0,
     host: env.QUEUE_HOST,
     port: env.QUEUE_PORT,
     password: env.QUEUE_PASSWORD,
