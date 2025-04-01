@@ -64,11 +64,13 @@ ARG RAILWAY_GIT_COMMIT_SHA
 RUN git clone https://username:token@github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.git && \
     cd $RAILWAY_GIT_REPO_NAME && \
     git checkout $RAILWAY_GIT_COMMIT_SHA
+
 RUN mkdir /app
-COPY ./$RAILWAY_GIT_REPO_NAME /app
+COPY . /app
 RUN ls
 RUN ls /app
 WORKDIR /app
+
 
 RUN turbo prune "${PROJECT}" --docker
 
