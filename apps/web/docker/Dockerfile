@@ -50,9 +50,6 @@ RUN npm install -g corepack@0.31.0 && corepack enable
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN ls
-RUN ls /
-RUN ls /mnt
 
 # Install turbo with npm instead of pnpm to avoid key verification issues
 RUN pnpm install -g turbo
@@ -63,17 +60,15 @@ ARG PROJECT
 ARG RAILWAY_GIT_REPO_OWNER
 ARG RAILWAY_GIT_REPO_NAME
 ARG RAILWAY_GIT_COMMIT_SHA
-ARG RAILWAY_GIT_AUTHOR
-ARG RAILWAY_GIT_BRANCH
-ARG RAILWAY_GIT_COMMIT_MESSAGE
 
-RUN git clone https://username:token@github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.git /app && \
+RUN git clone https://username:token@github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.git && \
     cd $RAILWAY_GIT_REPO_NAME && \
     git checkout $RAILWAY_GIT_COMMIT_SHA
-    
+RUN mkdir /app
+COPY ./$RAILWAY_GIT_REPO_NAME /app
+RUN ls
+RUN ls /app
 WORKDIR /app
-
-# COPY . .
 
 RUN turbo prune "${PROJECT}" --docker
 
