@@ -144,6 +144,7 @@ export const env = createEnv({
     AWS_ACCESS_KEY: z.string().optional(),
     AWS_ACCESS_SECRET: z.string().optional(),
     AWS_REGION: z.string().optional(),
+    AWS_NAMESPACE: z.string().optional(),
 
     // File storage
     DRIVE_DISK: z.union([z.literal('local'), z.literal('s3')]).optional(),

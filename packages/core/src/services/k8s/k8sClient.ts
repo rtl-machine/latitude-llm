@@ -144,6 +144,7 @@ function loadConfig() {
     throw new Error('Production environment requires AWS_SECRET_ACCESS_KEY')
 
   customConfig.awsRegion = env.AWS_REGION
+  if(env.AWS_ENDPOINT) customConfig.apiUrl = env.AWS_ENDPOINT
   customConfig.awsAccessKey = env.AWS_ACCESS_KEY
   customConfig.awsSecretKey = env.AWS_ACCESS_SECRET
 

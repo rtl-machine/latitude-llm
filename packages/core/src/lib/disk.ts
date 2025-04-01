@@ -27,6 +27,7 @@ function getAwsConfig() {
   const bucket = env.S3_BUCKET
   const publicBucket = env.PUBLIC_S3_BUCKET
   const region = env.AWS_REGION
+  const endpoint = env.AWS_ENDPOINT || undefined
 
   if (!bucket || !publicBucket || !region)
     throw new Error(
@@ -41,6 +42,7 @@ function getAwsConfig() {
       region,
       bucket,
       publicBucket,
+      endpoint,
       credentials: { accessKeyId, secretAccessKey },
     }
   }
@@ -49,6 +51,7 @@ function getAwsConfig() {
   return {
     region,
     bucket,
+    endpoint,
     publicBucket,
   }
 }
@@ -174,6 +177,7 @@ export class DiskWrapper {
         credentials: awsConfig.credentials,
         region: awsConfig.region,
         bucket: awsConfig.publicBucket,
+        endpoint: awsConfig.endpoint,
         supportsACL: false,
         visibility: 'public',
       })
@@ -184,6 +188,7 @@ export class DiskWrapper {
       credentials: awsConfig.credentials,
       region: awsConfig.region,
       bucket: awsConfig.bucket,
+      endpoint: awsConfig.endpoint,
       supportsACL: false,
       visibility: 'private',
     })
