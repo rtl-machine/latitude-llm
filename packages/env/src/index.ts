@@ -121,8 +121,8 @@ export const env = createEnv({
     APP_URL: z.string().url(),
 
     // Posthog
-    NEXT_PUBLIC_POSTHOG_HOST: z.string(),
-    NEXT_PUBLIC_POSTHOG_KEY: z.string(),
+    NEXT_PUBLIC_POSTHOG_HOST: z.string().optional(),
+    NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
 
     // Queue
     QUEUE_HOST: z.string(),
