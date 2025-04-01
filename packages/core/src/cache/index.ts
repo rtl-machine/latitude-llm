@@ -11,6 +11,7 @@ export const cache = async () => {
   connection = await buildRedisConnection({
     host: env.CACHE_HOST,
     port: env.CACHE_PORT,
+    password: env.CACHE_PASSWORD || undefined
   })
 
   return connection

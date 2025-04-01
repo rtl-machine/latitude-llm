@@ -106,6 +106,7 @@ export const env = createEnv({
 
     // Cache
     CACHE_HOST: z.string(),
+    CACHE_PASSWORD: z.string().optional(),
     CACHE_PORT: z.coerce.number().optional().default(6379),
 
     // Postgres
