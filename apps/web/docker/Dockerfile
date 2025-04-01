@@ -81,11 +81,11 @@ COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=pruner /app/out/json/ .
 COPY --from=pruner /app/out/full/ .
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install \
+RUN --mount=type=cache,id=s/pnpm,target=/pnpm/store pnpm install \
   --frozen-lockfile \
   --filter "${PROJECT}..."
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+RUN --mount=type=cache,id=s/pnpm,target=/pnpm/store \
   --mount=type=secret,id=SENTRY_AUTH_TOKEN \
   BUILDING_CONTAINER=true \
   NEXT_TELEMETRY_DISABLED=1 \
@@ -98,7 +98,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
   NEXT_PUBLIC_LATITUDE_CLOUD_PAYMENT_URL=$NEXT_PUBLIC_LATITUDE_CLOUD_PAYMENT_URL \
   pnpm turbo build --filter="${PROJECT}..."
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm prune --prod --no-optional
+RUN --mount=type=cache,id=s/pnpm,target=/pnpm/store pnpm prune --prod --no-optional
 
 # PRODUCTION
 FROM alpine AS runner
