@@ -1,4 +1,7 @@
 ARG PROJECT="@latitude-data/core"
+ARG RAILWAY_GIT_REPO_OWNER
+ARG RAILWAY_GIT_REPO_NAME
+ARG RAILWAY_GIT_COMMIT_SHA
 
 FROM node:22-alpine AS alpine
 
@@ -19,13 +22,21 @@ RUN pnpm i -g turbo
 FROM base AS runner
 
 ARG PROJECT
+ARG RAILWAY_GIT_REPO_OWNER
+ARG RAILWAY_GIT_REPO_NAME
+ARG RAILWAY_GIT_COMMIT_SHA
+
+RUN mkdir -p /app
+# Clone the repository
+RUN git clone https://github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.git /app
 
 WORKDIR /app
+RUN git checkout $RAILWAY_GIT_COMMIT_SHA
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
 COPY packages/core/package.json ./packages/core/
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install \
+RUN pnpm install \
   --frozen-lockfile \
   --filter "${PROJECT}..."
 
