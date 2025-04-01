@@ -11,14 +11,6 @@ ARG RAILWAY_GIT_AUTHOR
 ARG RAILWAY_GIT_BRANCH
 ARG RAILWAY_GIT_COMMIT_MESSAGE
 
-# Print the values for debugging
-RUN echo "Repository: $RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME" && \
-    echo "Commit: $RAILWAY_GIT_COMMIT_SHA" && \
-    echo "Author: $RAILWAY_GIT_AUTHOR" && \
-    echo "Branch: $RAILWAY_GIT_BRANCH" && \
-    echo "Message: $RAILWAY_GIT_COMMIT_MESSAGE"
-
-
 FROM node:22-alpine AS alpine
 
 # Install build dependencies
