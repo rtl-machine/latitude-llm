@@ -157,6 +157,6 @@ USER nextjs
 
 WORKDIR /app/apps/web
 
-EXPOSE 8080
+# EXPOSE 8080
 
 CMD ["node", "server.js"]
