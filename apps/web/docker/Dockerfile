@@ -8,6 +8,7 @@ FROM node:22-alpine AS alpine
 
 # Install build dependencies
 RUN apk add --update --no-cache \
+  git \
   libc6-compat \
   curl \
   sudo \
@@ -53,9 +54,12 @@ FROM base AS pruner
 
 ARG PROJECT
 
+RUN git clone https://username:token@github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.git /app && \
+    cd $RAILWAY_GIT_REPO_NAME && \
+    git checkout $RAILWAY_GIT_COMMIT_SHA
 WORKDIR /app
 
-COPY . .
+# COPY . .
 
 RUN turbo prune "${PROJECT}" --docker
 
