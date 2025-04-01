@@ -45,6 +45,17 @@ ENV PATH="$PNPM_HOME:$PATH"
 # Install turbo with npm instead of pnpm to avoid key verification issues
 RUN pnpm install -g turbo
 
+FROM base AS pruner
+
+ARG PROJECT
+
+COPY . /app
+
+WORKDIR /app
+
+
+RUN turbo prune "${PROJECT}" --docker
+
 # BUILDER stage
 # ------------------------------------------------------
 FROM base AS builder
@@ -66,10 +77,10 @@ ENV NEXT_PUBLIC_LATITUDE_CLOUD_PAYMENT_URL=$NEXT_PUBLIC_LATITUDE_CLOUD_PAYMENT_U
 
 WORKDIR /app
 
-# COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-# COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-# COPY --from=pruner /app/out/json/ .
-# COPY --from=pruner /app/out/full/ .
+COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=pruner /app/out/json/ .
+COPY --from=pruner /app/out/full/ .
 
 RUN pnpm install \
   --frozen-lockfile \
