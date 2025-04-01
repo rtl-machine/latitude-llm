@@ -61,25 +61,13 @@ ARG RAILWAY_GIT_REPO_OWNER
 ARG RAILWAY_GIT_REPO_NAME
 ARG RAILWAY_GIT_COMMIT_SHA
 
-# Create a temporary directory for cloning
-RUN mkdir -p /tmp/repo
-
+RUN mkdir -p /app
 # Clone the repository
-RUN git clone https://github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.git /tmp/repo
+RUN git clone https://github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.git /app
 
 # Checkout the specific commit
-WORKDIR /tmp/repo
-RUN git checkout $RAILWAY_GIT_COMMIT_SHA
-
-# Create the destination directory and copy the repo content
-RUN mkdir -p /app
-COPY . /app/
-
-RUN ls
-RUN ls /tmp/repo
-RUN ls /app
 WORKDIR /app
-
+RUN git checkout $RAILWAY_GIT_COMMIT_SHA
 
 RUN turbo prune "${PROJECT}" --docker
 
