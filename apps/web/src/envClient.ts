@@ -5,8 +5,8 @@ const EMAIL_TRIGGER_DOMAIN = process.env.NEXT_PUBLIC_EMAIL_TRIGGER_DOMAIN
 
 export const envClient = createEnv({
   client: {
-    NEXT_PUBLIC_POSTHOG_KEY: z.string(),
-    NEXT_PUBLIC_POSTHOG_HOST: z.string(),
+    NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
+    NEXT_PUBLIC_POSTHOG_HOST: z.string().optional(),
     NEXT_PUBLIC_DEFAULT_PROVIDER_NAME: z.string(),
     NEXT_PUBLIC_EMAIL_TRIGGER_DOMAIN: z.string().optional(),
     NEXT_PUBLIC_EVALUATIONS_V2_ENABLED: z.string().optional(), // TODO: Remove when evaluations v2 is fully released
