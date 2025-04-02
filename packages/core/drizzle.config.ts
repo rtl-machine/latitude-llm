@@ -9,6 +9,8 @@ export default {
   dialect: 'postgresql',
   schema: './src/schema/index.ts',
   out: './drizzle',
+  
+  verbose: true,
   dbCredentials: {
     url,
   },
