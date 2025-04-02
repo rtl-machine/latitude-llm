@@ -40,7 +40,7 @@ RUN pnpm install \
   --frozen-lockfile \
   --filter "${PROJECT}..."
 
-COPY packages/core/ ./packages/core/
+# COPY packages/core/ ./packages/core/
 
 CMD ["pnpm", "--prefix", "packages/core", "db:migrate"]
 
