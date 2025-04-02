@@ -33,8 +33,8 @@ RUN git clone https://github.com/$RAILWAY_GIT_REPO_OWNER/$RAILWAY_GIT_REPO_NAME.
 WORKDIR /app
 RUN git checkout $RAILWAY_GIT_COMMIT_SHA
 
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
-COPY packages/core/package.json ./packages/core/
+# COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+# COPY packages/core/package.json ./packages/core/
 
 RUN pnpm install \
   --frozen-lockfile \
